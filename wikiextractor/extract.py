@@ -391,6 +391,12 @@ EXT_IMAGE_REGEX = re.compile(
 def replaceExternalLinks(text):
     s = ''
     cur = 0
+
+    pattern = re.compile(r'(.*):?..:(.*)')
+    result = re.match(pattern, text)
+    if result:
+        text = result.group(1) + result.group(2)
+
     for m in ExtLinkBracketedRegex.finditer(text):
         s += text[cur:m.start()]
         cur = m.end()
